@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Client;
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/clients', fn() => Client::with('user')->get());
+Route::apiResource('/clients', ClientController::class);
