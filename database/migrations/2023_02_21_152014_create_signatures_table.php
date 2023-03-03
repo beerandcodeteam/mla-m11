@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('signatures', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Client::class);
-            $table->foreignIdFor(Plan::class);
+            $table->foreignIdFor(Client::class)->constrained();
+            $table->foreignIdFor(Plan::class)->constrained();
             $table->char('status',1);
             $table->timestamps();
             $table->softDeletes();
