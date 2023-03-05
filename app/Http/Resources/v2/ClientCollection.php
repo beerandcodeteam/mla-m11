@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\v2;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -16,7 +16,7 @@ class ClientCollection extends ResourceCollection
     {
         return [
             'clients' => $this->collection,
-            'attempts_until_now' => 45,
+            'attempts_until_now' => 4567,
         ];
     }
 }

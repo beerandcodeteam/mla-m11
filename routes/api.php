@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ClientController;
+use App\Http\Controllers\v1\ClientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +26,4 @@ Route::group(['middleware'=> ['auth:sanctum']], function() {
     });
 
     Route::post('/logout', [AuthController::class,'logout']);
-
-    Route::apiResource('/clients', ClientController::class);
 });

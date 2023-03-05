@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v2;
 
-use App\Http\Requests\StoreClientRequest;
-use App\Http\Requests\UpdateClientRequest;
-use App\Http\Resources\ClientCollection;
-use App\Http\Resources\ClientResource;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\v1\StoreClientRequest;
+use App\Http\Requests\v1\UpdateClientRequest;
+use App\Http\Resources\v2\ClientCollection;
+use App\Http\Resources\v2\ClientResource;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;

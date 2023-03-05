@@ -33,6 +33,8 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            $this->mapApiVersionRoutes();
         });
     }
 
@@ -44,5 +46,18 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+    }
+
+    protected function mapApiVersionRoutes()
+    {
+        Route::middleware('api')
+            ->prefix('api/v1')
+            ->name('v1.')
+            ->group(base_path('routes/api/v1.php'));
+
+        Route::middleware('api')
+            ->prefix('api/v2')
+            ->name('v2.')
+            ->group(base_path('routes/api/v2.php'));
     }
 }
