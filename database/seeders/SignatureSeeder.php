@@ -13,6 +13,6 @@ class SignatureSeeder extends Seeder
      */
     public function run(): void
     {
-        Signature::factory(10000)->create();
+        Signature::factory(100)->create();
     }
 }

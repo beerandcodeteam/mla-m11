@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -21,7 +25,18 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
-        //
+        DB::transaction(function() use($request) {
+            $user = User::create([
+                'email' => $request->get('email'),
+                'password' => Hash::make($request->get('password'))
+            ]);
+
+            $user->client()->create([
+                'name' => $request->get('name')
+            ]);
+        });
+
+        return response()->json(status: JsonResponse::HTTP_CREATED);
     }
 
     /**
@@ -37,7 +52,24 @@ class ClientController extends Controller
      */
     public function update(UpdateClientRequest $request, Client $client)
     {
-        //
+        DB::transaction(function() use($request, $client) {
+            $clientName = $request->get('name', $client->name);
+
+            $userEmail = $request->get('email', $client->user->email);
+
+            $userPassword = $request->get('password', $client->user->password);
+
+            $client->update([
+                'name' => $clientName
+            ]);
+
+            $client->user->update([
+                'email' => $userEmail,
+                'password' => Hash::make($userPassword)
+            ]);
+        });
+
+        return response()->json(status: JsonResponse::HTTP_NO_CONTENT);
     }
 
     /**
@@ -45,6 +77,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+
+        return response()->json(status: JsonResponse::HTTP_NO_CONTENT);
     }
 }
