@@ -19,6 +19,8 @@ class ClientController extends Controller
      */
     public function index()
     {
+        abort_if(!auth()->user()->tokenCan('client:index'), 403, 'Not authorized!');
+
         return new ClientCollection(Client::with('user')->get());
     }
 
@@ -27,6 +29,8 @@ class ClientController extends Controller
      */
     public function store(StoreClientRequest $request)
     {
+        abort_if(!auth()->user()->tokenCan('client:store'), 403, 'Not authorized!');
+
         DB::transaction(function() use($request) {
             $user = User::create([
                 'email' => $request->get('email'),

@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function login(Request $request)
     {
         $user = User::where('email', $request->get('username'))->first();
 
@@ -23,7 +24,18 @@ class LoginController extends Controller
         }
 
         return [
-            'access_token' => $user->createToken($user->name.$user->create_at)->plainTextToken
+            'access_token' => $user
+                ->createToken($user->name.$user->create_at, ['client:store'])
+                ->plainTextToken
         ];
+    }
+
+    public function logout()
+    {
+        $user = auth()->user();
+
+        $user->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Token revoked.'], JsonResponse::HTTP_OK);
     }
 }
