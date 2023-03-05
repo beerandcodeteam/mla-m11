@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\v2;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\v1\StoreClientRequest;
 use App\Http\Requests\v1\UpdateClientRequest;
-use App\Http\Resources\v2\ClientCollection;
-use App\Http\Resources\v2\ClientResource;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -20,9 +18,11 @@ class ClientController extends Controller
      */
     public function index()
     {
+        $apiResource = request()->apiNamespace.'Resources\ClientCollection';
+
         abort_if(!auth()->user()->tokenCan('client:index'), 403, 'Not authorized!');
 
-        return new ClientCollection(Client::with('user')->get());
+        return new $apiResource(Client::with('user')->get());
     }
 
     /**
@@ -51,7 +51,9 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        return new ClientResource($client->load('user'));
+        $apiResource = request()->apiNamespace.'Resources\ClientResource';
+
+        return new $apiResource($client->load('user'));
     }
 
     /**

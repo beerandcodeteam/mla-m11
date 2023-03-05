@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\v2;
+namespace App\Api\v3\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -15,8 +15,8 @@ class ClientCollection extends ResourceCollection
     public function toArray(Request $request): array
     {
         return [
-            'clients' => $this->collection,
-            'attempts_until_now' => 4567,
+            'lista_de_clientes_nao_excluidos' => $this->collection,
+            'novo_campo' => 'novo_valor'
         ];
     }
 }

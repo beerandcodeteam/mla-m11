@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\v1;
+namespace App\Api\v3\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,11 +15,8 @@ class ClientResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->name,
-            $this->mergeWhen(true, [
-                'email' => $this->user->email,
-                'created_at' => $this->created_at->format('Y-m-d')
-            ])
+            'nome' => $this->name,
+            'criado_em' => $this->created_at->format('Y-m-d'),
         ];
     }
 }

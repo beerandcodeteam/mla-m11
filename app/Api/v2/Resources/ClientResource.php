@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\v2;
+namespace App\Api\v2\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -15,8 +15,8 @@ class ClientResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->name,
-            'email' => $this->user->email,
+            'nome' => $this->name,
+            'criado_em' => $this->created_at->format('Y-m-d'),
         ];
     }
 }

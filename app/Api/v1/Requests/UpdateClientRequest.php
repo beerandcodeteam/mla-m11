@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\v1;
+namespace App\Api\v1\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreClientRequest extends FormRequest
+class UpdateClientRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +25,6 @@ class StoreClientRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'email.email' => 'Isso n é um email nao, mano!'
         ];
     }
 }
