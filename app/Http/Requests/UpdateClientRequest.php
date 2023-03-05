@@ -22,7 +22,9 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required'
         ];
     }
 }
