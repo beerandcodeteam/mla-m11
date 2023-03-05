@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Http\Resources\ClientCollection;
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use App\Models\User;
@@ -18,7 +19,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return ClientResource::collection(Client::with('user')->get());
+        return new ClientCollection(Client::with('user')->get());
     }
 
     /**

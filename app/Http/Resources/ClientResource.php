@@ -16,7 +16,7 @@ class ClientResource extends JsonResource
     {
         return [
             'name' => $this->name,
-            'user' => new UserResource($this->user),
+            'email' => $this->user->email,
             'created_at' => $this->created_at->format('Y-m-d')
         ];
     }
