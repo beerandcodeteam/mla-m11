@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Http\Resources\ClientResource;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -17,7 +18,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return Client::with('user')->get();
+        return ClientResource::collection(Client::with('user')->get());
     }
 
     /**
@@ -44,7 +45,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        return $client->load('user');
+        return new ClientResource($client->load('user'));
     }
 
     /**
